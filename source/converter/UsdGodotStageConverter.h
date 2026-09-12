@@ -552,6 +552,45 @@ namespace converter
             skeleton->set_bone_rest(neutralBoneIndex, godot::Transform3D()); // identity rest
         }
 
+        // Blend-shape grouping outlives the skin-target loop: the named clips are
+        // built once per skeleton, after every mesh has registered its shapes, and
+        // clang is right to reject reaching into the loop's scope from there.
+        // primary name -> [(member shape name, position)] ascending, primary last.
+        std::map<std::string, std::vector<std::pair<std::string, float>>> clipGroups;
+
+        // USD evaluates a primary weight w through the chain base(0) ..
+        // in-betweens(p_k) .. primary(1): between two neighbours the two shapes
+        // cross-fade and every other member is 0. Reproducing that with Godot's
+        // independent 0-1 shapes means evaluating this basis. Positions in, values
+        // out, so both callers map their own keys onto it.
+        std::function<void(const std::vector<float>&, float, std::vector<float>&)> evalBlendHat =
+                [](const std::vector<float>& positions, float w, std::vector<float>& out)
+        {
+            out.assign(positions.size(), 0.0f);
+            if (positions.empty() || w <= 0.0f) return;
+            const size_t n = positions.size();
+            if (w >= positions[n - 1])
+            {
+                // At or past the last member its own axis scales linearly,
+                // matching UsdSkel's extrapolation past weight 1.
+                out[n - 1] = w / positions[n - 1];
+                return;
+            }
+            float prevPos = 0.0f;
+            for (size_t k = 0; k < n; ++k)
+            {
+                const float pos = positions[k];
+                if (w <= pos)
+                {
+                    const float t = (pos - prevPos) > 0.0f ? (w - prevPos) / (pos - prevPos) : 1.0f;
+                    if (k > 0) out[k - 1] = 1.0f - t;
+                    out[k] = t;
+                    return;
+                }
+                prevPos = pos;
+            }
+        };
+
         // the skeleton might be skinned by different meshes/skin targets. Create the corresponding MeshInstances
         // used to skin the skeleton
         for (auto& skinTarget: skeleton_description.SkinTargets)
@@ -591,38 +630,6 @@ namespace converter
             // group of size 1 is a plain shape with no in-betweens.
             std::map<std::string, std::vector<std::pair<int, float>>> blendGroups;
             std::vector<std::string> blendShapeNames;
-            // USD evaluates a primary weight w through the chain base(0) ..
-            // in-betweens(p_k) .. primary(1): between two neighbours the two
-            // shapes cross-fade and every other member is 0. Reproducing that
-            // with Godot's independent 0-1 shapes means evaluating this basis.
-            std::function<void(const std::vector<std::pair<int, float>>&, float, std::vector<std::pair<int, float>>&)> evalBlendHat = [](const std::vector<std::pair<int, float>>& entries,
-                                   float w, std::vector<std::pair<int, float>>& out)
-            {
-                out.clear();
-                for (const std::pair<int, float>& e : entries) out.push_back({e.first, 0.0f});
-                if (entries.empty() || w <= 0.0f) return;
-                const size_t n = entries.size();
-                if (w >= entries[n - 1].second)
-                {
-                    // At or past the last member its own axis scales linearly,
-                    // matching UsdSkel's extrapolation past weight 1.
-                    out[n - 1].second = w / entries[n - 1].second;
-                    return;
-                }
-                float prevPos = 0.0f;
-                for (size_t k = 0; k < n; ++k)
-                {
-                    const float pos = entries[k].second;
-                    if (w <= pos)
-                    {
-                        const float t = (pos - prevPos) > 0.0f ? (w - prevPos) / (pos - prevPos) : 1.0f;
-                        if (k > 0) out[k - 1].second = 1.0f - t;
-                        out[k].second = t;
-                        return;
-                    }
-                    prevPos = pos;
-                }
-            };
 
             for (const MeshDescription<types::MeshData>& meshDescription: MeshDescriptions)
             {
@@ -656,6 +663,15 @@ namespace converter
                     for (std::pair<const std::string, std::vector<std::pair<int, float>>>& g : blendGroups)
                         std::sort(g.second.begin(), g.second.end(),
                                   [](const std::pair<int, float>& a, const std::pair<int, float>& b) { return a.second < b.second; });
+                    // Keyed by name for the clip builder, which runs after this loop
+                    // and cannot see indices that mean nothing outside this mesh.
+                    for (const std::pair<const std::string, std::vector<std::pair<int, float>>>& g : blendGroups)
+                    {
+                        std::vector<std::pair<std::string, float>>& members = clipGroups[g.first];
+                        members.clear();
+                        for (const std::pair<int, float>& e : g.second)
+                            members.push_back({ blendShapeNames[static_cast<size_t>(e.first)], e.second });
+                    }
                     break;
                 }
             }
@@ -846,9 +862,12 @@ namespace converter
                 // The authored weight lives on the primary (position 1, last
                 // after the sort); spread it across the group.
                 const float w = blendShapeWeights[g.second.back().first];
-                std::vector<std::pair<int, float>> vals;
-                evalBlendHat(g.second, w, vals);
-                for (const std::pair<int, float>& v : vals) blendShapeWeights[v.first] = v.second;
+                std::vector<float> positions;
+                for (const std::pair<int, float>& e : g.second) positions.push_back(e.second);
+                std::vector<float> vals;
+                evalBlendHat(positions, w, vals);
+                for (size_t m = 0; m < vals.size(); ++m)
+                    blendShapeWeights[g.second[m].first] = vals[m];
             }
             for (size_t b = 0; b < blendShapeWeights.size(); ++b)
             {
@@ -950,12 +969,14 @@ namespace converter
                             bsAnim->track_set_interpolation_type(vt, godot::Animation::INTERPOLATION_LINEAR);
                             memberTracks.push_back(vt);
                         }
-                        std::vector<std::pair<int, float>> vals;
+                        std::vector<float> positions;
+                        for (const std::pair<int, float>& e : git->second) positions.push_back(e.second);
+                        std::vector<float> vals;
                         for (size_t oi : order)
                         {
-                            evalBlendHat(git->second, bakeWeights[oi], vals);
+                            evalBlendHat(positions, bakeWeights[oi], vals);
                             for (size_t m = 0; m < vals.size(); ++m)
-                                bsAnim->track_insert_key(memberTracks[m], bakeTimes[oi], vals[m].second);
+                                bsAnim->track_insert_key(memberTracks[m], bakeTimes[oi], vals[m]);
                         }
                     }
 
@@ -1031,8 +1052,8 @@ namespace converter
                     }
                     case converter::TRACK_BLEND_WEIGHT:
                     {
-                        std::map<std::string, std::vector<std::pair<int, float>>>::iterator git = blendGroups.find(t.Name);
-                        const bool grouped = git != blendGroups.end() && git->second.size() > 1;
+                        std::map<std::string, std::vector<std::pair<std::string, float>>>::iterator git = clipGroups.find(t.Name);
+                        const bool grouped = git != clipGroups.end() && git->second.size() > 1;
                         if (!grouped)
                         {
                             const int32_t ti = clip->add_track(godot::Animation::TYPE_BLEND_SHAPE);
@@ -1055,7 +1076,7 @@ namespace converter
                             const float w1 = std::get<float>(t.Keys[k + 1].Value);
                             if (!(t1 > t0) || w0 == w1) continue;
                             const float lo = std::min(w0, w1), hi = std::max(w0, w1);
-                            for (const std::pair<int, float>& e : git->second)
+                            for (const std::pair<std::string, float>& e : git->second)
                                 if (e.second > lo && e.second < hi)
                                 {
                                     times.push_back(t0 + (t1 - t0) * double((e.second - w0) / (w1 - w0)));
@@ -1067,19 +1088,20 @@ namespace converter
                         std::sort(order.begin(), order.end(),
                                   [&](size_t x, size_t y) { return times[x] < times[y]; });
                         std::vector<int32_t> memberTracks;
-                        for (const std::pair<int, float>& e : git->second)
+                        std::vector<float> positions;
+                        for (const std::pair<std::string, float>& e : git->second)
                         {
                             const int32_t ti = clip->add_track(godot::Animation::TYPE_BLEND_SHAPE);
-                            clip->track_set_path(ti,
-                                godot::NodePath(blendShapeNames[static_cast<size_t>(e.first)].c_str()));
+                            clip->track_set_path(ti, godot::NodePath(e.first.c_str()));
                             memberTracks.push_back(ti);
+                            positions.push_back(e.second);
                         }
-                        std::vector<std::pair<int, float>> vals;
+                        std::vector<float> vals;
                         for (size_t oi : order)
                         {
-                            evalBlendHat(git->second, ws[oi], vals);
+                            evalBlendHat(positions, ws[oi], vals);
                             for (size_t m = 0; m < vals.size(); ++m)
-                                clip->blend_shape_track_insert_key(memberTracks[m], times[oi], vals[m].second);
+                                clip->blend_shape_track_insert_key(memberTracks[m], times[oi], vals[m]);
                         }
                         break;
                     }
