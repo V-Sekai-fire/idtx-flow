@@ -467,7 +467,10 @@ void UsdStageNode3D::_collect_clips(Node* node, const Ref<AnimationLibrary>& lib
             for (int t = 0; t < clip->get_track_count(); ++t)
             {
                 const NodePath path = clip->track_get_path(t);
-                if (path.get_name_count() > 0) continue;   // already a real path
+                // A bare "smile" parses as a node name, not as a subname, so the test for
+                // "already addressed" is the subname. Reading it the other way leaves every
+                // track exactly as the converter wrote it, which a mixer cannot resolve.
+                if (path.get_subname_count() > 0) continue;
 
                 const String target = String(path).trim_prefix(":");
                 Node* owner = target.is_empty() ? nullptr
