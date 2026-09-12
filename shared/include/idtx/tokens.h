@@ -10,10 +10,10 @@
 /// \file IDTX/tokens.h
 
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-// 
+//
 // This is an automatically generated file (by usdGenSchema.py).
 // Do not hand-edit!
-// 
+//
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 #include "pxr/pxr.h"
@@ -23,7 +23,6 @@
 #include <vector>
 
 PXR_NAMESPACE_OPEN_SCOPE
-
 
 /// \class IDTXTokensType
 ///
@@ -43,242 +42,243 @@ PXR_NAMESPACE_OPEN_SCOPE
 /// \code
 ///     gprim.GetMyTokenValuedAttr().Set(IDTXTokens->authorization);
 /// \endcode
-struct IDTXTokensType {
+struct IDTXTokensType
+{
     IDTX_API IDTXTokensType();
     /// \brief "authorization"
-    /// 
+    ///
     /// IDTXRestDatasource
     const TfToken authorization;
     /// \brief "Box"
-    /// 
+    ///
     /// Fallback value for IDTXCollisionAPI::GetCollisionShapeAttr()
     const TfToken Box;
     /// \brief "Capsule"
-    /// 
+    ///
     /// Possible value for IDTXCollisionAPI::GetCollisionShapeAttr()
     const TfToken Capsule;
     /// \brief "Collide"
-    /// 
+    ///
     /// Possible value for IDTXCollisionAPI::GetCollisionInteractionTypesAttr()
     const TfToken Collide;
     /// \brief "collision:interactionTypes"
-    /// 
+    ///
     /// IDTXCollisionAPI
     const TfToken collisionInteractionTypes;
     /// \brief "collision:shape"
-    /// 
+    ///
     /// IDTXCollisionAPI
     const TfToken collisionShape;
     /// \brief "collision:type"
-    /// 
+    ///
     /// IDTXCollisionAPI
     const TfToken collisionType;
     /// \brief "Convex"
-    /// 
+    ///
     /// Possible value for IDTXCollisionAPI::GetCollisionShapeAttr()
     const TfToken Convex;
     /// \brief "Cylinder"
-    /// 
+    ///
     /// Possible value for IDTXCollisionAPI::GetCollisionShapeAttr()
     const TfToken Cylinder;
     /// \brief "double"
-    /// 
+    ///
     /// Possible value for IDTXCompute_ValueFromJson::GetJsonValueTypeAttr()
     const TfToken double_;
     /// \brief "endpoint"
-    /// 
+    ///
     /// IDTXRestDatasource
     const TfToken endpoint;
     /// \brief "float"
-    /// 
+    ///
     /// Possible value for IDTXCompute_ValueFromJson::GetJsonValueTypeAttr()
     const TfToken float_;
     /// \brief "GET"
-    /// 
+    ///
     /// Fallback value for IDTXRestDatasource::GetMethodAttr()
     const TfToken GET;
     /// \brief "Grab"
-    /// 
+    ///
     /// Possible value for IDTXCollisionAPI::GetCollisionInteractionTypesAttr()
     const TfToken Grab;
     /// \brief "guide"
-    /// 
+    ///
     /// Fallback value for IDTXCollisionAPI schema attribute purpose
     const TfToken guide;
     /// \brief "inputs:jsonData"
-    /// 
+    ///
     /// IDTXCompute_ValueFromJson
     const TfToken inputsJsonData;
     /// \brief "inputs:key"
-    /// 
+    ///
     /// IDTXCompute_Environment
     const TfToken inputsKey;
     /// \brief "inputs:template"
-    /// 
+    ///
     /// IDTXCompute_VarReplacements
     const TfToken inputsTemplate;
     /// \brief "inputs:value"
-    /// 
+    ///
     /// IDTXCompute_ScaleDouble
     const TfToken inputsValue;
     /// \brief "interaction:enabled"
-    /// 
+    ///
     /// IDTXInteractionAPI
     const TfToken interactionEnabled;
     /// \brief "interaction:highlightable"
-    /// 
+    ///
     /// IDTXInteractionAPI
     const TfToken interactionHighlightable;
     /// \brief "interaction:highlightColor"
-    /// 
+    ///
     /// IDTXInteractionAPI
     const TfToken interactionHighlightColor;
     /// \brief "interaction:identifier"
-    /// 
+    ///
     /// IDTXInteractionAPI
     const TfToken interactionIdentifier;
     /// \brief "interval"
-    /// 
+    ///
     /// IDTXMockDatasource_RandomFloat, IDTXRestDatasource
     const TfToken interval;
     /// \brief "invisible"
-    /// 
+    ///
     /// Fallback value for IDTXCollisionAPI schema attribute visibility
     const TfToken invisible;
     /// \brief "jsonBody"
-    /// 
+    ///
     /// IDTXRestDatasource
     const TfToken jsonBody;
     /// \brief "jsonPath"
-    /// 
+    ///
     /// IDTXCompute_ValueFromJson
     const TfToken jsonPath;
     /// \brief "jsonValueType"
-    /// 
+    ///
     /// IDTXCompute_ValueFromJson
     const TfToken jsonValueType;
     /// \brief "method"
-    /// 
+    ///
     /// IDTXRestDatasource
     const TfToken method;
     /// \brief "NO_VALUE"
-    /// 
+    ///
     /// Fallback value for IDTXInteractionAPI::GetInteractionIdentifierAttr()
     const TfToken NO_VALUE;
     /// \brief "none"
-    /// 
+    ///
     /// Possible value for IDTXCompute_ValueFromJson::GetJsonValueTypeAttr()
     const TfToken none;
     /// \brief "outputs:data"
-    /// 
+    ///
     /// IDTXDatasource
     const TfToken outputsData;
     /// \brief "outputs:jsonValue:double"
-    /// 
+    ///
     /// IDTXCompute_ValueFromJson
     const TfToken outputsJsonValueDouble;
     /// \brief "outputs:jsonValue:float"
-    /// 
+    ///
     /// IDTXCompute_ValueFromJson
     const TfToken outputsJsonValueFloat;
     /// \brief "outputs:jsonValue:string"
-    /// 
+    ///
     /// IDTXCompute_ValueFromJson
     const TfToken outputsJsonValueString;
     /// \brief "outputs:result"
-    /// 
+    ///
     /// IDTXCompute_VarReplacements, IDTXCompute_ScaleDouble
     const TfToken outputsResult;
     /// \brief "outputs:value"
-    /// 
+    ///
     /// IDTXCompute_Environment
     const TfToken outputsValue;
     /// \brief "physics:collider"
-    /// 
+    ///
     /// IDTXCollisionSetAPI
     const TfToken physicsCollider;
     /// \brief "physics:collider:querry"
-    /// 
+    ///
     /// IDTXCollisionSetAPI
     const TfToken physicsColliderQuerry;
     /// \brief "POST"
-    /// 
+    ///
     /// Possible value for IDTXRestDatasource::GetMethodAttr()
     const TfToken POST;
     /// \brief "purpose"
-    /// 
+    ///
     /// IDTXCollisionAPI
     const TfToken purpose;
     /// \brief "query"
-    /// 
+    ///
     /// IDTXRestDatasource
     const TfToken query;
     /// \brief "Rigidbody"
-    /// 
+    ///
     /// Possible value for IDTXCollisionAPI::GetCollisionTypeAttr()
     const TfToken Rigidbody;
     /// \brief "scalarFactor"
-    /// 
+    ///
     /// IDTXCompute_ScaleDouble
     const TfToken scalarFactor;
     /// \brief "Select"
-    /// 
+    ///
     /// Possible value for IDTXCollisionAPI::GetCollisionInteractionTypesAttr()
     const TfToken Select;
     /// \brief "Sphere"
-    /// 
+    ///
     /// Possible value for IDTXCollisionAPI::GetCollisionShapeAttr()
     const TfToken Sphere;
     /// \brief "Static"
-    /// 
+    ///
     /// Fallback value for IDTXCollisionAPI::GetCollisionTypeAttr()
     const TfToken Static;
     /// \brief "string"
-    /// 
+    ///
     /// Possible value for IDTXCompute_ValueFromJson::GetJsonValueTypeAttr()
     const TfToken string;
     /// \brief "visibility"
-    /// 
+    ///
     /// IDTXCollisionAPI
     const TfToken visibility;
     /// \brief "CollisionAPI"
-    /// 
+    ///
     /// Schema identifer and family for IDTXCollisionAPI
     const TfToken CollisionAPI;
     /// \brief "CollisionSetAPI"
-    /// 
+    ///
     /// Schema identifer and family for IDTXCollisionSetAPI
     const TfToken CollisionSetAPI;
     /// \brief "Compute_Environment"
-    /// 
+    ///
     /// Schema identifer and family for IDTXCompute_Environment
     const TfToken Compute_Environment;
     /// \brief "Compute_ScaleDouble"
-    /// 
+    ///
     /// Schema identifer and family for IDTXCompute_ScaleDouble
     const TfToken Compute_ScaleDouble;
     /// \brief "Compute_ValueFromJson"
-    /// 
+    ///
     /// Schema identifer and family for IDTXCompute_ValueFromJson
     const TfToken Compute_ValueFromJson;
     /// \brief "Compute_VarReplacements"
-    /// 
+    ///
     /// Schema identifer and family for IDTXCompute_VarReplacements
     const TfToken Compute_VarReplacements;
     /// \brief "Datasource"
-    /// 
+    ///
     /// Schema identifer and family for IDTXDatasource
     const TfToken Datasource;
     /// \brief "InteractionAPI"
-    /// 
+    ///
     /// Schema identifer and family for IDTXInteractionAPI
     const TfToken InteractionAPI;
     /// \brief "MockDatasource_RandomFloat"
-    /// 
+    ///
     /// Schema identifer and family for IDTXMockDatasource_RandomFloat
     const TfToken MockDatasource_RandomFloat;
     /// \brief "RestDatasource"
-    /// 
+    ///
     /// Schema identifer and family for IDTXRestDatasource
     const TfToken RestDatasource;
     /// A vector of all of the tokens listed above.

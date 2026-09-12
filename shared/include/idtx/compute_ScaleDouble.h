@@ -38,7 +38,7 @@ class SdfAssetPath;
 ///
 class IDTXCompute_ScaleDouble : public UsdTyped
 {
-public:
+  public:
     /// Compile time constant representing what kind of schema this class is.
     ///
     /// \sa UsdSchemaKind
@@ -48,16 +48,14 @@ public:
     /// Equivalent to IDTXCompute_ScaleDouble::Get(prim.GetStage(), prim.GetPath())
     /// for a \em valid \p prim, but will not immediately throw an error for
     /// an invalid \p prim
-    explicit IDTXCompute_ScaleDouble(const UsdPrim& prim=UsdPrim())
-        : UsdTyped(prim)
+    explicit IDTXCompute_ScaleDouble(const UsdPrim& prim = UsdPrim()) : UsdTyped(prim)
     {
     }
 
     /// Construct a IDTXCompute_ScaleDouble on the prim held by \p schemaObj .
     /// Should be preferred over IDTXCompute_ScaleDouble(schemaObj.GetPrim()),
     /// as it preserves SchemaBase state.
-    explicit IDTXCompute_ScaleDouble(const UsdSchemaBase& schemaObj)
-        : UsdTyped(schemaObj)
+    explicit IDTXCompute_ScaleDouble(const UsdSchemaBase& schemaObj) : UsdTyped(schemaObj)
     {
     }
 
@@ -69,8 +67,7 @@ public:
     /// class and all its ancestor classes.  Does not include attributes that
     /// may be authored by custom/extended methods of the schemas involved.
     IDTX_API
-    static const TfTokenVector &
-    GetSchemaAttributeNames(bool includeInherited=true);
+    static const TfTokenVector& GetSchemaAttributeNames(bool includeInherited = true);
 
     /// Return a IDTXCompute_ScaleDouble holding the prim adhering to this
     /// schema at \p path on \p stage.  If no prim exists at \p path on
@@ -82,8 +79,7 @@ public:
     /// \endcode
     ///
     IDTX_API
-    static IDTXCompute_ScaleDouble
-    Get(const UsdStagePtr &stage, const SdfPath &path);
+    static IDTXCompute_ScaleDouble Get(const UsdStagePtr& stage, const SdfPath& path);
 
     /// Attempt to ensure a \a UsdPrim adhering to this schema at \p path
     /// is defined (according to UsdPrim::IsDefined()) on this stage.
@@ -108,31 +104,30 @@ public:
     /// the opinion at the current EditTarget.
     ///
     IDTX_API
-    static IDTXCompute_ScaleDouble
-    Define(const UsdStagePtr &stage, const SdfPath &path);
+    static IDTXCompute_ScaleDouble Define(const UsdStagePtr& stage, const SdfPath& path);
 
-protected:
+  protected:
     /// Returns the kind of schema this class belongs to.
     ///
     /// \sa UsdSchemaKind
     IDTX_API
     UsdSchemaKind _GetSchemaKind() const override;
 
-private:
+  private:
     // needs to invoke _GetStaticTfType.
     friend class UsdSchemaRegistry;
     IDTX_API
-    static const TfType &_GetStaticTfType();
+    static const TfType& _GetStaticTfType();
 
     static bool _IsTypedSchema();
 
     // override SchemaBase virtuals.
     IDTX_API
-    const TfType &_GetTfType() const override;
+    const TfType& _GetTfType() const override;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // SCALARFACTOR 
+    // SCALARFACTOR
     // --------------------------------------------------------------------- //
     /// The scalar factor that shall be multiplied to the input value
     ///
@@ -144,17 +139,17 @@ public:
     IDTX_API
     UsdAttribute GetScalarFactorAttr() const;
 
-    /// See GetScalarFactorAttr(), and also 
+    /// See GetScalarFactorAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateScalarFactorAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateScalarFactorAttr(VtValue const& defaultValue = VtValue(), bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // INPUTSVALUE 
+    // INPUTSVALUE
     // --------------------------------------------------------------------- //
     /// The input value to this computation. Could be connected to another compute node
     ///
@@ -166,17 +161,17 @@ public:
     IDTX_API
     UsdAttribute GetInputsValueAttr() const;
 
-    /// See GetInputsValueAttr(), and also 
+    /// See GetInputsValueAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateInputsValueAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateInputsValueAttr(VtValue const& defaultValue = VtValue(), bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // OUTPUTSRESULT 
+    // OUTPUTSRESULT
     // --------------------------------------------------------------------- //
     /// The result of the computation
     ///
@@ -188,21 +183,21 @@ public:
     IDTX_API
     UsdAttribute GetOutputsResultAttr() const;
 
-    /// See GetOutputsResultAttr(), and also 
+    /// See GetOutputsResultAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateOutputsResultAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateOutputsResultAttr(VtValue const& defaultValue = VtValue(), bool writeSparsely = false) const;
 
-public:
+  public:
     // ===================================================================== //
-    // Feel free to add custom code below this line, it will be preserved by 
-    // the code generator. 
+    // Feel free to add custom code below this line, it will be preserved by
+    // the code generator.
     //
-    // Just remember to: 
-    //  - Close the class declaration with }; 
+    // Just remember to:
+    //  - Close the class declaration with };
     //  - Close the namespace with PXR_NAMESPACE_CLOSE_SCOPE
     //  - Close the include guard with #endif
     // ===================================================================== //

@@ -1,0 +1,24 @@
+# A style config nothing runs is a preference. This runs the same clang-format the
+# .clang-format at the root describes, pinned to the version that produced it --
+# different major versions of clang-format disagree, so an unpinned check would
+# fail on formatting it accepted last week.
+name: format
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  clang-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: pipx install clang-format==22.1.5
+
+      - name: source/ and shared/ match .clang-format
+        run: find source shared -path '*/proto_gen' -prune -o \( -name '*.h' -o -name '*.cpp' \) -print | xargs clang-format --dry-run -Werror

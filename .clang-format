@@ -1,0 +1,17 @@
+# Written from what source/ and shared/ already do, not from a preference:
+# Allman braces (131 of 132 opening braces in UsdGodotStageConverter.h sit on
+# their own line), four-space indent in 69 of 78 files, pointers bound to the
+# type, and a 120-column limit that 1% of existing lines exceed.
+---
+Language: Cpp
+BasedOnStyle: Microsoft
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 120
+PointerAlignment: Left
+ReferenceAlignment: Left
+SpaceBeforeRangeBasedForLoopColon: false
+SortIncludes: Never
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortBlocksOnASingleLine: Empty
