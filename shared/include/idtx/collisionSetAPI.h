@@ -39,7 +39,7 @@ class SdfAssetPath;
 ///
 class IDTXCollisionSetAPI : public UsdAPISchemaBase
 {
-public:
+  public:
     /// Compile time constant representing what kind of schema this class is.
     ///
     /// \sa UsdSchemaKind
@@ -49,16 +49,14 @@ public:
     /// Equivalent to IDTXCollisionSetAPI::Get(prim.GetStage(), prim.GetPath())
     /// for a \em valid \p prim, but will not immediately throw an error for
     /// an invalid \p prim
-    explicit IDTXCollisionSetAPI(const UsdPrim& prim=UsdPrim())
-        : UsdAPISchemaBase(prim)
+    explicit IDTXCollisionSetAPI(const UsdPrim& prim = UsdPrim()) : UsdAPISchemaBase(prim)
     {
     }
 
     /// Construct a IDTXCollisionSetAPI on the prim held by \p schemaObj .
     /// Should be preferred over IDTXCollisionSetAPI(schemaObj.GetPrim()),
     /// as it preserves SchemaBase state.
-    explicit IDTXCollisionSetAPI(const UsdSchemaBase& schemaObj)
-        : UsdAPISchemaBase(schemaObj)
+    explicit IDTXCollisionSetAPI(const UsdSchemaBase& schemaObj) : UsdAPISchemaBase(schemaObj)
     {
     }
 
@@ -70,8 +68,7 @@ public:
     /// class and all its ancestor classes.  Does not include attributes that
     /// may be authored by custom/extended methods of the schemas involved.
     IDTX_API
-    static const TfTokenVector &
-    GetSchemaAttributeNames(bool includeInherited=true);
+    static const TfTokenVector& GetSchemaAttributeNames(bool includeInherited = true);
 
     /// Return a IDTXCollisionSetAPI holding the prim adhering to this
     /// schema at \p path on \p stage.  If no prim exists at \p path on
@@ -83,20 +80,18 @@ public:
     /// \endcode
     ///
     IDTX_API
-    static IDTXCollisionSetAPI
-    Get(const UsdStagePtr &stage, const SdfPath &path);
+    static IDTXCollisionSetAPI Get(const UsdStagePtr& stage, const SdfPath& path);
 
-
-    /// Returns true if this <b>single-apply</b> API schema can be applied to 
-    /// the given \p prim. If this schema can not be a applied to the prim, 
-    /// this returns false and, if provided, populates \p whyNot with the 
+    /// Returns true if this <b>single-apply</b> API schema can be applied to
+    /// the given \p prim. If this schema can not be a applied to the prim,
+    /// this returns false and, if provided, populates \p whyNot with the
     /// reason it can not be applied.
-    /// 
+    ///
     /// Note that if CanApply returns false, that does not necessarily imply
     /// that calling Apply will fail. Callers are expected to call CanApply
-    /// before calling Apply if they want to ensure that it is valid to 
+    /// before calling Apply if they want to ensure that it is valid to
     /// apply a schema.
-    /// 
+    ///
     /// \sa UsdPrim::GetAppliedSchemas()
     /// \sa UsdPrim::HasAPI()
     /// \sa UsdPrim::CanApplyAPI()
@@ -104,18 +99,17 @@ public:
     /// \sa UsdPrim::RemoveAPI()
     ///
     IDTX_API
-    static bool 
-    CanApply(const UsdPrim &prim, std::string *whyNot=nullptr);
+    static bool CanApply(const UsdPrim& prim, std::string* whyNot = nullptr);
 
     /// Applies this <b>single-apply</b> API schema to the given \p prim.
-    /// This information is stored by adding "CollisionSetAPI" to the 
+    /// This information is stored by adding "CollisionSetAPI" to the
     /// token-valued, listOp metadata \em apiSchemas on the prim.
-    /// 
-    /// \return A valid IDTXCollisionSetAPI object is returned upon success. 
-    /// An invalid (or empty) IDTXCollisionSetAPI object is returned upon 
-    /// failure. See \ref UsdPrim::ApplyAPI() for conditions 
-    /// resulting in failure. 
-    /// 
+    ///
+    /// \return A valid IDTXCollisionSetAPI object is returned upon success.
+    /// An invalid (or empty) IDTXCollisionSetAPI object is returned upon
+    /// failure. See \ref UsdPrim::ApplyAPI() for conditions
+    /// resulting in failure.
+    ///
     /// \sa UsdPrim::GetAppliedSchemas()
     /// \sa UsdPrim::HasAPI()
     /// \sa UsdPrim::CanApplyAPI()
@@ -123,63 +117,64 @@ public:
     /// \sa UsdPrim::RemoveAPI()
     ///
     IDTX_API
-    static IDTXCollisionSetAPI 
-    Apply(const UsdPrim &prim);
+    static IDTXCollisionSetAPI Apply(const UsdPrim& prim);
 
-protected:
+  protected:
     /// Returns the kind of schema this class belongs to.
     ///
     /// \sa UsdSchemaKind
     IDTX_API
     UsdSchemaKind _GetSchemaKind() const override;
 
-private:
+  private:
     // needs to invoke _GetStaticTfType.
     friend class UsdSchemaRegistry;
     IDTX_API
-    static const TfType &_GetStaticTfType();
+    static const TfType& _GetStaticTfType();
 
     static bool _IsTypedSchema();
 
     // override SchemaBase virtuals.
     IDTX_API
-    const TfType &_GetTfType() const override;
+    const TfType& _GetTfType() const override;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // PHYSICSCOLLIDER 
+    // PHYSICSCOLLIDER
     // --------------------------------------------------------------------- //
     /// Define which prims are used as colliders.
     ///
     IDTX_API
     UsdRelationship GetPhysicsColliderRel() const;
 
-    /// See GetPhysicsColliderRel(), and also 
+    /// See GetPhysicsColliderRel(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create
     IDTX_API
     UsdRelationship CreatePhysicsColliderRel() const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // PHYSICSCOLLIDERQUERRY 
+    // PHYSICSCOLLIDERQUERRY
     // --------------------------------------------------------------------- //
-    /// If the collider used for interaction raycasting is different from the ones used for physics simulation, this should be authored here. Entries in this list overrule the entries in the physics:collider list for interaction queries.
+    /// If the collider used for interaction raycasting is different from the ones used for physics simulation, this
+    /// should be authored here. Entries in this list overrule the entries in the physics:collider list for interaction
+    /// queries.
     ///
     IDTX_API
     UsdRelationship GetPhysicsColliderQuerryRel() const;
 
-    /// See GetPhysicsColliderQuerryRel(), and also 
+    /// See GetPhysicsColliderQuerryRel(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create
     IDTX_API
     UsdRelationship CreatePhysicsColliderQuerryRel() const;
 
-public:
+  public:
     // ===================================================================== //
-    // Feel free to add custom code below this line, it will be preserved by 
-    // the code generator. 
+    // Feel free to add custom code below this line, it will be preserved by
+    // the code generator.
     //
-    // Just remember to: 
-    //  - Close the class declaration with }; 
+    // Just remember to:
+    //  - Close the class declaration with };
     //  - Close the namespace with PXR_NAMESPACE_CLOSE_SCOPE
     //  - Close the include guard with #endif
     // ===================================================================== //

@@ -42,7 +42,7 @@ class SdfAssetPath;
 ///
 class IDTXCompute_ValueFromJson : public UsdTyped
 {
-public:
+  public:
     /// Compile time constant representing what kind of schema this class is.
     ///
     /// \sa UsdSchemaKind
@@ -52,16 +52,14 @@ public:
     /// Equivalent to IDTXCompute_ValueFromJson::Get(prim.GetStage(), prim.GetPath())
     /// for a \em valid \p prim, but will not immediately throw an error for
     /// an invalid \p prim
-    explicit IDTXCompute_ValueFromJson(const UsdPrim& prim=UsdPrim())
-        : UsdTyped(prim)
+    explicit IDTXCompute_ValueFromJson(const UsdPrim& prim = UsdPrim()) : UsdTyped(prim)
     {
     }
 
     /// Construct a IDTXCompute_ValueFromJson on the prim held by \p schemaObj .
     /// Should be preferred over IDTXCompute_ValueFromJson(schemaObj.GetPrim()),
     /// as it preserves SchemaBase state.
-    explicit IDTXCompute_ValueFromJson(const UsdSchemaBase& schemaObj)
-        : UsdTyped(schemaObj)
+    explicit IDTXCompute_ValueFromJson(const UsdSchemaBase& schemaObj) : UsdTyped(schemaObj)
     {
     }
 
@@ -73,8 +71,7 @@ public:
     /// class and all its ancestor classes.  Does not include attributes that
     /// may be authored by custom/extended methods of the schemas involved.
     IDTX_API
-    static const TfTokenVector &
-    GetSchemaAttributeNames(bool includeInherited=true);
+    static const TfTokenVector& GetSchemaAttributeNames(bool includeInherited = true);
 
     /// Return a IDTXCompute_ValueFromJson holding the prim adhering to this
     /// schema at \p path on \p stage.  If no prim exists at \p path on
@@ -86,8 +83,7 @@ public:
     /// \endcode
     ///
     IDTX_API
-    static IDTXCompute_ValueFromJson
-    Get(const UsdStagePtr &stage, const SdfPath &path);
+    static IDTXCompute_ValueFromJson Get(const UsdStagePtr& stage, const SdfPath& path);
 
     /// Attempt to ensure a \a UsdPrim adhering to this schema at \p path
     /// is defined (according to UsdPrim::IsDefined()) on this stage.
@@ -112,33 +108,32 @@ public:
     /// the opinion at the current EditTarget.
     ///
     IDTX_API
-    static IDTXCompute_ValueFromJson
-    Define(const UsdStagePtr &stage, const SdfPath &path);
+    static IDTXCompute_ValueFromJson Define(const UsdStagePtr& stage, const SdfPath& path);
 
-protected:
+  protected:
     /// Returns the kind of schema this class belongs to.
     ///
     /// \sa UsdSchemaKind
     IDTX_API
     UsdSchemaKind _GetSchemaKind() const override;
 
-private:
+  private:
     // needs to invoke _GetStaticTfType.
     friend class UsdSchemaRegistry;
     IDTX_API
-    static const TfType &_GetStaticTfType();
+    static const TfType& _GetStaticTfType();
 
     static bool _IsTypedSchema();
 
     // override SchemaBase virtuals.
     IDTX_API
-    const TfType &_GetTfType() const override;
+    const TfType& _GetTfType() const override;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // INPUTSJSONDATA 
+    // INPUTSJSONDATA
     // --------------------------------------------------------------------- //
-    /// 
+    ///
     ///
     /// | ||
     /// | -- | -- |
@@ -148,19 +143,19 @@ public:
     IDTX_API
     UsdAttribute GetInputsJsonDataAttr() const;
 
-    /// See GetInputsJsonDataAttr(), and also 
+    /// See GetInputsJsonDataAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateInputsJsonDataAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateInputsJsonDataAttr(VtValue const& defaultValue = VtValue(), bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // JSONPATH 
+    // JSONPATH
     // --------------------------------------------------------------------- //
-    /// 
+    ///
     ///
     /// | ||
     /// | -- | -- |
@@ -170,19 +165,19 @@ public:
     IDTX_API
     UsdAttribute GetJsonPathAttr() const;
 
-    /// See GetJsonPathAttr(), and also 
+    /// See GetJsonPathAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateJsonPathAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateJsonPathAttr(VtValue const& defaultValue = VtValue(), bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // JSONVALUETYPE 
+    // JSONVALUETYPE
     // --------------------------------------------------------------------- //
-    /// 
+    ///
     ///
     /// | ||
     /// | -- | -- |
@@ -193,19 +188,19 @@ public:
     IDTX_API
     UsdAttribute GetJsonValueTypeAttr() const;
 
-    /// See GetJsonValueTypeAttr(), and also 
+    /// See GetJsonValueTypeAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateJsonValueTypeAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateJsonValueTypeAttr(VtValue const& defaultValue = VtValue(), bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // OUTPUTSJSONVALUEDOUBLE 
+    // OUTPUTSJSONVALUEDOUBLE
     // --------------------------------------------------------------------- //
-    /// 
+    ///
     ///
     /// | ||
     /// | -- | -- |
@@ -215,19 +210,20 @@ public:
     IDTX_API
     UsdAttribute GetOutputsJsonValueDoubleAttr() const;
 
-    /// See GetOutputsJsonValueDoubleAttr(), and also 
+    /// See GetOutputsJsonValueDoubleAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateOutputsJsonValueDoubleAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateOutputsJsonValueDoubleAttr(VtValue const& defaultValue = VtValue(),
+                                                  bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // OUTPUTSJSONVALUEFLOAT 
+    // OUTPUTSJSONVALUEFLOAT
     // --------------------------------------------------------------------- //
-    /// 
+    ///
     ///
     /// | ||
     /// | -- | -- |
@@ -237,19 +233,20 @@ public:
     IDTX_API
     UsdAttribute GetOutputsJsonValueFloatAttr() const;
 
-    /// See GetOutputsJsonValueFloatAttr(), and also 
+    /// See GetOutputsJsonValueFloatAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateOutputsJsonValueFloatAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateOutputsJsonValueFloatAttr(VtValue const& defaultValue = VtValue(),
+                                                 bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // OUTPUTSJSONVALUESTRING 
+    // OUTPUTSJSONVALUESTRING
     // --------------------------------------------------------------------- //
-    /// 
+    ///
     ///
     /// | ||
     /// | -- | -- |
@@ -259,39 +256,39 @@ public:
     IDTX_API
     UsdAttribute GetOutputsJsonValueStringAttr() const;
 
-    /// See GetOutputsJsonValueStringAttr(), and also 
+    /// See GetOutputsJsonValueStringAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateOutputsJsonValueStringAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateOutputsJsonValueStringAttr(VtValue const& defaultValue = VtValue(),
+                                                  bool writeSparsely = false) const;
 
-public:
+  public:
     // ===================================================================== //
-    // Feel free to add custom code below this line, it will be preserved by 
-    // the code generator. 
+    // Feel free to add custom code below this line, it will be preserved by
+    // the code generator.
     //
-    // Just remember to: 
-    //  - Close the class declaration with }; 
+    // Just remember to:
+    //  - Close the class declaration with };
     //  - Close the namespace with PXR_NAMESPACE_CLOSE_SCOPE
     //  - Close the include guard with #endif
     // ===================================================================== //
     // --(BEGIN CUSTOM CODE)--
-    
+
     /**
      * Convenient templated getter to retrieved the typed value from the schema property
      * @tparam T Value type from the supported types like float, double, string
      * @param out The typed value that is the result of the compute exercise
-     * @return 
+     * @return
      */
-    template <typename T>
-    bool GetJsonValue(T* out) const;
+    template <typename T> bool GetJsonValue(T* out) const;
 
     /**
-     * Conenient setter method that authors the value and the corresponding type. 
+     * Conenient setter method that authors the value and the corresponding type.
      * @param value The value to be autherd. The type is extracted from the value using the IsHolding() methods.
-     * @return 
+     * @return
      */
     bool SetJsonValue(const pxr::VtValue& value);
 };

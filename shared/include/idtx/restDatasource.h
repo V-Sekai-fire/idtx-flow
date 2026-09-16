@@ -36,8 +36,8 @@ class SdfAssetPath;
 /// \class IDTXRestDatasource
 ///
 /// This is a REST data source that calls the provided REST endoint and returns the JSON response.
-/// 
-/// 
+///
+///
 ///
 /// For any described attribute \em Fallback \em Value or \em Allowed \em Values below
 /// that are text/tokens, the actual token is published and defined in \ref IDTXTokens.
@@ -46,7 +46,7 @@ class SdfAssetPath;
 ///
 class IDTXRestDatasource : public IDTXDatasource
 {
-public:
+  public:
     /// Compile time constant representing what kind of schema this class is.
     ///
     /// \sa UsdSchemaKind
@@ -56,16 +56,14 @@ public:
     /// Equivalent to IDTXRestDatasource::Get(prim.GetStage(), prim.GetPath())
     /// for a \em valid \p prim, but will not immediately throw an error for
     /// an invalid \p prim
-    explicit IDTXRestDatasource(const UsdPrim& prim=UsdPrim())
-        : IDTXDatasource(prim)
+    explicit IDTXRestDatasource(const UsdPrim& prim = UsdPrim()) : IDTXDatasource(prim)
     {
     }
 
     /// Construct a IDTXRestDatasource on the prim held by \p schemaObj .
     /// Should be preferred over IDTXRestDatasource(schemaObj.GetPrim()),
     /// as it preserves SchemaBase state.
-    explicit IDTXRestDatasource(const UsdSchemaBase& schemaObj)
-        : IDTXDatasource(schemaObj)
+    explicit IDTXRestDatasource(const UsdSchemaBase& schemaObj) : IDTXDatasource(schemaObj)
     {
     }
 
@@ -77,8 +75,7 @@ public:
     /// class and all its ancestor classes.  Does not include attributes that
     /// may be authored by custom/extended methods of the schemas involved.
     IDTX_API
-    static const TfTokenVector &
-    GetSchemaAttributeNames(bool includeInherited=true);
+    static const TfTokenVector& GetSchemaAttributeNames(bool includeInherited = true);
 
     /// Return a IDTXRestDatasource holding the prim adhering to this
     /// schema at \p path on \p stage.  If no prim exists at \p path on
@@ -90,8 +87,7 @@ public:
     /// \endcode
     ///
     IDTX_API
-    static IDTXRestDatasource
-    Get(const UsdStagePtr &stage, const SdfPath &path);
+    static IDTXRestDatasource Get(const UsdStagePtr& stage, const SdfPath& path);
 
     /// Attempt to ensure a \a UsdPrim adhering to this schema at \p path
     /// is defined (according to UsdPrim::IsDefined()) on this stage.
@@ -116,31 +112,30 @@ public:
     /// the opinion at the current EditTarget.
     ///
     IDTX_API
-    static IDTXRestDatasource
-    Define(const UsdStagePtr &stage, const SdfPath &path);
+    static IDTXRestDatasource Define(const UsdStagePtr& stage, const SdfPath& path);
 
-protected:
+  protected:
     /// Returns the kind of schema this class belongs to.
     ///
     /// \sa UsdSchemaKind
     IDTX_API
     UsdSchemaKind _GetSchemaKind() const override;
 
-private:
+  private:
     // needs to invoke _GetStaticTfType.
     friend class UsdSchemaRegistry;
     IDTX_API
-    static const TfType &_GetStaticTfType();
+    static const TfType& _GetStaticTfType();
 
     static bool _IsTypedSchema();
 
     // override SchemaBase virtuals.
     IDTX_API
-    const TfType &_GetTfType() const override;
+    const TfType& _GetTfType() const override;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // ENDPOINT 
+    // ENDPOINT
     // --------------------------------------------------------------------- //
     /// The base URL of the REST API endpoint
     ///
@@ -152,17 +147,17 @@ public:
     IDTX_API
     UsdAttribute GetEndpointAttr() const;
 
-    /// See GetEndpointAttr(), and also 
+    /// See GetEndpointAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateEndpointAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateEndpointAttr(VtValue const& defaultValue = VtValue(), bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // QUERY 
+    // QUERY
     // --------------------------------------------------------------------- //
     /// The query to append to the endpoint URL after the path. Value is url encoded
     ///
@@ -174,17 +169,17 @@ public:
     IDTX_API
     UsdAttribute GetQueryAttr() const;
 
-    /// See GetQueryAttr(), and also 
+    /// See GetQueryAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateQueryAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateQueryAttr(VtValue const& defaultValue = VtValue(), bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // METHOD 
+    // METHOD
     // --------------------------------------------------------------------- //
     /// HTTP Method to be used for the call to the endpoint. Allowed: GET, POST
     ///
@@ -197,17 +192,17 @@ public:
     IDTX_API
     UsdAttribute GetMethodAttr() const;
 
-    /// See GetMethodAttr(), and also 
+    /// See GetMethodAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateMethodAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateMethodAttr(VtValue const& defaultValue = VtValue(), bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // AUTHORIZATION 
+    // AUTHORIZATION
     // --------------------------------------------------------------------- //
     /// The authorization header value passed to the request. Usually 'Bearer <TOKEN>'
     ///
@@ -219,17 +214,17 @@ public:
     IDTX_API
     UsdAttribute GetAuthorizationAttr() const;
 
-    /// See GetAuthorizationAttr(), and also 
+    /// See GetAuthorizationAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateAuthorizationAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateAuthorizationAttr(VtValue const& defaultValue = VtValue(), bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // JSONBODY 
+    // JSONBODY
     // --------------------------------------------------------------------- //
     /// The JSON body to be send to the endpoint, when the method is set to POST
     ///
@@ -241,19 +236,20 @@ public:
     IDTX_API
     UsdAttribute GetJsonBodyAttr() const;
 
-    /// See GetJsonBodyAttr(), and also 
+    /// See GetJsonBodyAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateJsonBodyAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateJsonBodyAttr(VtValue const& defaultValue = VtValue(), bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // INTERVAL 
+    // INTERVAL
     // --------------------------------------------------------------------- //
-    /// The update interval in seconds the REST datasource shall call it's endpoint and author the response into \sa outputs:data attribute in the current usd stage this prim is authored. 
+    /// The update interval in seconds the REST datasource shall call it's endpoint and author the response into \sa
+    /// outputs:data attribute in the current usd stage this prim is authored.
     ///
     /// | ||
     /// | -- | -- |
@@ -263,21 +259,21 @@ public:
     IDTX_API
     UsdAttribute GetIntervalAttr() const;
 
-    /// See GetIntervalAttr(), and also 
+    /// See GetIntervalAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateIntervalAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateIntervalAttr(VtValue const& defaultValue = VtValue(), bool writeSparsely = false) const;
 
-public:
+  public:
     // ===================================================================== //
-    // Feel free to add custom code below this line, it will be preserved by 
-    // the code generator. 
+    // Feel free to add custom code below this line, it will be preserved by
+    // the code generator.
     //
-    // Just remember to: 
-    //  - Close the class declaration with }; 
+    // Just remember to:
+    //  - Close the class declaration with };
     //  - Close the namespace with PXR_NAMESPACE_CLOSE_SCOPE
     //  - Close the include guard with #endif
     // ===================================================================== //

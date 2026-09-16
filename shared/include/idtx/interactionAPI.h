@@ -44,7 +44,7 @@ class SdfAssetPath;
 ///
 class IDTXInteractionAPI : public UsdAPISchemaBase
 {
-public:
+  public:
     /// Compile time constant representing what kind of schema this class is.
     ///
     /// \sa UsdSchemaKind
@@ -54,16 +54,14 @@ public:
     /// Equivalent to IDTXInteractionAPI::Get(prim.GetStage(), prim.GetPath())
     /// for a \em valid \p prim, but will not immediately throw an error for
     /// an invalid \p prim
-    explicit IDTXInteractionAPI(const UsdPrim& prim=UsdPrim())
-        : UsdAPISchemaBase(prim)
+    explicit IDTXInteractionAPI(const UsdPrim& prim = UsdPrim()) : UsdAPISchemaBase(prim)
     {
     }
 
     /// Construct a IDTXInteractionAPI on the prim held by \p schemaObj .
     /// Should be preferred over IDTXInteractionAPI(schemaObj.GetPrim()),
     /// as it preserves SchemaBase state.
-    explicit IDTXInteractionAPI(const UsdSchemaBase& schemaObj)
-        : UsdAPISchemaBase(schemaObj)
+    explicit IDTXInteractionAPI(const UsdSchemaBase& schemaObj) : UsdAPISchemaBase(schemaObj)
     {
     }
 
@@ -75,8 +73,7 @@ public:
     /// class and all its ancestor classes.  Does not include attributes that
     /// may be authored by custom/extended methods of the schemas involved.
     IDTX_API
-    static const TfTokenVector &
-    GetSchemaAttributeNames(bool includeInherited=true);
+    static const TfTokenVector& GetSchemaAttributeNames(bool includeInherited = true);
 
     /// Return a IDTXInteractionAPI holding the prim adhering to this
     /// schema at \p path on \p stage.  If no prim exists at \p path on
@@ -88,20 +85,18 @@ public:
     /// \endcode
     ///
     IDTX_API
-    static IDTXInteractionAPI
-    Get(const UsdStagePtr &stage, const SdfPath &path);
+    static IDTXInteractionAPI Get(const UsdStagePtr& stage, const SdfPath& path);
 
-
-    /// Returns true if this <b>single-apply</b> API schema can be applied to 
-    /// the given \p prim. If this schema can not be a applied to the prim, 
-    /// this returns false and, if provided, populates \p whyNot with the 
+    /// Returns true if this <b>single-apply</b> API schema can be applied to
+    /// the given \p prim. If this schema can not be a applied to the prim,
+    /// this returns false and, if provided, populates \p whyNot with the
     /// reason it can not be applied.
-    /// 
+    ///
     /// Note that if CanApply returns false, that does not necessarily imply
     /// that calling Apply will fail. Callers are expected to call CanApply
-    /// before calling Apply if they want to ensure that it is valid to 
+    /// before calling Apply if they want to ensure that it is valid to
     /// apply a schema.
-    /// 
+    ///
     /// \sa UsdPrim::GetAppliedSchemas()
     /// \sa UsdPrim::HasAPI()
     /// \sa UsdPrim::CanApplyAPI()
@@ -109,18 +104,17 @@ public:
     /// \sa UsdPrim::RemoveAPI()
     ///
     IDTX_API
-    static bool 
-    CanApply(const UsdPrim &prim, std::string *whyNot=nullptr);
+    static bool CanApply(const UsdPrim& prim, std::string* whyNot = nullptr);
 
     /// Applies this <b>single-apply</b> API schema to the given \p prim.
-    /// This information is stored by adding "InteractionAPI" to the 
+    /// This information is stored by adding "InteractionAPI" to the
     /// token-valued, listOp metadata \em apiSchemas on the prim.
-    /// 
-    /// \return A valid IDTXInteractionAPI object is returned upon success. 
-    /// An invalid (or empty) IDTXInteractionAPI object is returned upon 
-    /// failure. See \ref UsdPrim::ApplyAPI() for conditions 
-    /// resulting in failure. 
-    /// 
+    ///
+    /// \return A valid IDTXInteractionAPI object is returned upon success.
+    /// An invalid (or empty) IDTXInteractionAPI object is returned upon
+    /// failure. See \ref UsdPrim::ApplyAPI() for conditions
+    /// resulting in failure.
+    ///
     /// \sa UsdPrim::GetAppliedSchemas()
     /// \sa UsdPrim::HasAPI()
     /// \sa UsdPrim::CanApplyAPI()
@@ -128,31 +122,30 @@ public:
     /// \sa UsdPrim::RemoveAPI()
     ///
     IDTX_API
-    static IDTXInteractionAPI 
-    Apply(const UsdPrim &prim);
+    static IDTXInteractionAPI Apply(const UsdPrim& prim);
 
-protected:
+  protected:
     /// Returns the kind of schema this class belongs to.
     ///
     /// \sa UsdSchemaKind
     IDTX_API
     UsdSchemaKind _GetSchemaKind() const override;
 
-private:
+  private:
     // needs to invoke _GetStaticTfType.
     friend class UsdSchemaRegistry;
     IDTX_API
-    static const TfType &_GetStaticTfType();
+    static const TfType& _GetStaticTfType();
 
     static bool _IsTypedSchema();
 
     // override SchemaBase virtuals.
     IDTX_API
-    const TfType &_GetTfType() const override;
+    const TfType& _GetTfType() const override;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // INTERACTIONENABLED 
+    // INTERACTIONENABLED
     // --------------------------------------------------------------------- //
     /// Define if colliders participate in interaction.
     ///
@@ -164,19 +157,21 @@ public:
     IDTX_API
     UsdAttribute GetInteractionEnabledAttr() const;
 
-    /// See GetInteractionEnabledAttr(), and also 
+    /// See GetInteractionEnabledAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateInteractionEnabledAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateInteractionEnabledAttr(VtValue const& defaultValue = VtValue(),
+                                              bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // INTERACTIONHIGHLIGHTABLE 
+    // INTERACTIONHIGHLIGHTABLE
     // --------------------------------------------------------------------- //
-    /// Define if the asset shall display a highlight effect when selected. Actual implementation needs to be done on the engine side.
+    /// Define if the asset shall display a highlight effect when selected. Actual implementation needs to be done on
+    /// the engine side.
     ///
     /// | ||
     /// | -- | -- |
@@ -186,17 +181,18 @@ public:
     IDTX_API
     UsdAttribute GetInteractionHighlightableAttr() const;
 
-    /// See GetInteractionHighlightableAttr(), and also 
+    /// See GetInteractionHighlightableAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateInteractionHighlightableAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateInteractionHighlightableAttr(VtValue const& defaultValue = VtValue(),
+                                                    bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // INTERACTIONHIGHLIGHTCOLOR 
+    // INTERACTIONHIGHLIGHTCOLOR
     // --------------------------------------------------------------------- //
     /// Color for the highlight effect.
     ///
@@ -208,19 +204,21 @@ public:
     IDTX_API
     UsdAttribute GetInteractionHighlightColorAttr() const;
 
-    /// See GetInteractionHighlightColorAttr(), and also 
+    /// See GetInteractionHighlightColorAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateInteractionHighlightColorAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateInteractionHighlightColorAttr(VtValue const& defaultValue = VtValue(),
+                                                     bool writeSparsely = false) const;
 
-public:
+  public:
     // --------------------------------------------------------------------- //
-    // INTERACTIONIDENTIFIER 
+    // INTERACTIONIDENTIFIER
     // --------------------------------------------------------------------- //
-    /// Used to link the asset to a specific interaction behavior in the engine. E.g. passing to the implemented interaction handler methods.
+    /// Used to link the asset to a specific interaction behavior in the engine. E.g. passing to the implemented
+    /// interaction handler methods.
     ///
     /// | ||
     /// | -- | -- |
@@ -231,21 +229,22 @@ public:
     IDTX_API
     UsdAttribute GetInteractionIdentifierAttr() const;
 
-    /// See GetInteractionIdentifierAttr(), and also 
+    /// See GetInteractionIdentifierAttr(), and also
     /// \ref Usd_Create_Or_Get_Property for when to use Get vs Create.
     /// If specified, author \p defaultValue as the attribute's default,
     /// sparsely (when it makes sense to do so) if \p writeSparsely is \c true -
     /// the default for \p writeSparsely is \c false.
     IDTX_API
-    UsdAttribute CreateInteractionIdentifierAttr(VtValue const &defaultValue = VtValue(), bool writeSparsely=false) const;
+    UsdAttribute CreateInteractionIdentifierAttr(VtValue const& defaultValue = VtValue(),
+                                                 bool writeSparsely = false) const;
 
-public:
+  public:
     // ===================================================================== //
-    // Feel free to add custom code below this line, it will be preserved by 
-    // the code generator. 
+    // Feel free to add custom code below this line, it will be preserved by
+    // the code generator.
     //
-    // Just remember to: 
-    //  - Close the class declaration with }; 
+    // Just remember to:
+    //  - Close the class declaration with };
     //  - Close the namespace with PXR_NAMESPACE_CLOSE_SCOPE
     //  - Close the include guard with #endif
     // ===================================================================== //
